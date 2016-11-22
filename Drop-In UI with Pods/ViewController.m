@@ -95,7 +95,7 @@ NSString *resultCheck;
     // Dismiss drop-in ui
     [self dismissViewControllerAnimated:YES completion:nil];
     
-    
+     if (![paymentMethodNonce.type  isEqual: @"PayPal"]) {
     // Kick off 3D Secure flow. This example uses a value of $1999.99.
     [threeDSecure verifyCardWithNonce:paymentMethodNonce.nonce
                                amount:[NSDecimalNumber decimalNumberWithString:@"1999.99"]
@@ -113,6 +113,12 @@ NSString *resultCheck;
                                // Send 3D Secure nonce to server
                                [self postNonceToServer:card.nonce];
                            }];
+         
+     } else {
+         
+         [self postNonceToServer:paymentMethodNonce.nonce];
+         
+     }
     
     
 }
